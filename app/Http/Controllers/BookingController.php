@@ -99,14 +99,14 @@ class BookingController extends Controller
 
         $syncData =[];
         if ($request->has('addons')){
-            foreach ($request->addons as $addonId=>$quantity) {
-                if ($quantity < 1){
+            foreach ($request->addons as $addonId => $quantity) {
+                if ($quantity < 1) {
                     continue;
                 }
                 $addon = Addon::find($addonId);
                 $syncData[$addonId] = [
                     'quantity' => $quantity,
-                    'price_at_booking'=>$addon->price,
+                    'price_at_booking' => $addon->price,
                 ];
             }
         }

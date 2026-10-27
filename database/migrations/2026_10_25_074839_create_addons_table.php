@@ -17,7 +17,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->decimal('price', 10, 2);
             $table->boolean('is_active')->default(true);
-            $table->unsignedBigInteger('sort_order')->default(0);
+            $table->unsignedTinyInteger('sort_order')->default(0);
             $table->timestamps();
         });
     }

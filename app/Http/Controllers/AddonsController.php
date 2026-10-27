@@ -30,11 +30,6 @@ class AddonsController extends Controller
         return redirect()->route('addons.index');
     }
 
-    public function show(Addon $addon)
-    {
-        return view('addons.show', compact('addon'));
-    }
-
     public function edit(Addon $addon)
     {
         return view('addons.edit', compact('addon'));

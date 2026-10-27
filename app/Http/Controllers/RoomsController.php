@@ -30,11 +30,6 @@ class RoomsController extends Controller
         return redirect()->route('rooms.index');
     }
 
-    public function show(Room $room) : View
-    {
-        return view('rooms.show', ['room' => $room]);
-    }
-
     public function edit(Room $room) : View
     {
         return view('rooms.edit', ['room' => $room]);
