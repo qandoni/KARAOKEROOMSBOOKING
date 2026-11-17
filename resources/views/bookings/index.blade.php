@@ -6,7 +6,7 @@
     </x-slot>
 
     <div class="py-12">
-        <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
+        <div class="max-w-5xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white shadow-sm sm:rounded-lg p-6">
 
                 <a href="{{ route('booking.create') }}"
@@ -20,7 +20,8 @@
                     <table class="w-full text-left">
                         <thead>
                         <tr class="border-b">
-                            <th class="py-2">Рум</th>
+                            <th class="py-2">Заказчик</th>
+                            <th>Комната</th>
                             <th>Начало</th>
                             <th>Конец</th>
                             <th>Сумма</th>
@@ -31,7 +32,8 @@
                         <tbody>
                         @foreach ($bookings as $booking)
                             <tr class="border-b {{ $booking->status === 'cancelled' ? 'text-gray-400' : '' }}">
-                                <td class="py-2">{{ $booking->room->name }}</td>
+                                <td class="py-2">{{$booking->user->name}}</td>
+                                <td>{{ $booking->room->name }}</td>
                                 <td>{{ $booking->starts_at->format('d.m.Y H:i') }}</td>
                                 <td>{{ $booking->ends_at->format('d.m.Y H:i') }}</td>
                                 <td>{{ number_format($booking->total_price, 0, '.', ' ') }} ₽</td>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Booking;
 use App\Models\Room;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -47,6 +48,9 @@ class RoomsController extends Controller
 
     public function destroy(Room $room) : RedirectResponse
     {
+        if (Booking::where('room_id', $room->id)->exists()) {
+            return redirect()->route('rooms.index')->with('error', "Невозможно удалить комнату, так как на нее существует бронь");
+        }
         $room->delete();
         return redirect()->route('rooms.index');
     }

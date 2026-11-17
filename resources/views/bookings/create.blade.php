@@ -22,7 +22,10 @@
                         <label class="block text-sm font-medium text-gray-700">Рум</label>
                         <select name="room_id" class="mt-1 block w-full border-gray-300 rounded-md">
                             @foreach ($rooms as $room)
-                                <option value="{{ $room->id }}">{{ $room->name }}</option>
+                                <option value="{{ $room->id }}"
+                                    @selected(old('room_id')==$room->id)>
+                                    {{ $room->name }}
+                                </option>
                             @endforeach
                         </select>
                     </div>
@@ -30,19 +33,21 @@
                     <div>
                         <label class="block text-sm font-medium text-gray-700">Начало</label>
                         <input type="datetime-local" name="starts_at" step="1800"
+                               value="{{old('starts_at')}}"
                                class="mt-1 block w-full border-gray-300 rounded-md">
                     </div>
 
                     <div>
                         <label class="block text-sm font-medium text-gray-700">Конец</label>
                         <input type="datetime-local" name="ends_at" step ="1800"
+                               value="{{old('ends_at')}}"
                                class="mt-1 block w-full border-gray-300 rounded-md">
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">Допуслуги</label>
                         @foreach ($addons as $addon)
                             <div class="flex items-center gap-3 mb-2">
-                                <input type="number" name="addons[{{ $addon->id }}]" min="0" value="0"
+                                <input type="number" name="addons[{{ $addon->id }}]" min="0" value="{{old("addons." .$addon->id, 0)}}"
                                        class="w-16 border-gray-300 rounded-md">
                                 <span class="text-sm text-gray-700">
                                     {{ $addon->name }} — {{ $addon->price }} ₽

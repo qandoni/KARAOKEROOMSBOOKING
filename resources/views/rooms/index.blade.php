@@ -9,6 +9,12 @@
         <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white shadow-sm sm:rounded-lg p-6">
 
+                @if (session('error'))
+                    <div class="mb-4 p-3 bg-red-100 text-red-700 rounded-md">
+                        {{ session('error') }}
+                    </div>
+                @endif
+
                 <a href="{{ route('rooms.create') }}"
                    class="inline-block mb-4 bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700">
                     Создать
@@ -17,6 +23,7 @@
                 @if ($rooms->isEmpty())
                     <p class="text-gray-500">Румов пока нет.</p>
                 @else
+
                     <table class="w-full text-left">
                         <thead>
                         <tr class="border-b">

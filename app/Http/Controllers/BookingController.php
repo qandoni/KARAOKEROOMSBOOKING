@@ -14,8 +14,7 @@ class BookingController extends Controller
 {
     public function index(): View
     {
-        $bookings = Booking::where('user_id', auth()->id())
-            ->with(['room', 'addons'])
+        $bookings = Booking::with(['room', 'addons', 'user'])
             ->get()
             ->sortBy([
                 ['status', 'asc'],
@@ -45,6 +44,9 @@ class BookingController extends Controller
 
         $room = Room::findOrFail($request->room_id);
         $hours = $startsAt->diffInMinutes($endsAt) / 60;
+        if ($hours < $room->min_hours) {
+            return back()->withErrors(['ends_at' => 'Длительность брони не может быть меньше чем заявлено в описании комнаты'])->withInput();
+        }
         $total = $hours * $room->price_per_hour;
 
         $booking = new Booking();
@@ -115,6 +117,9 @@ class BookingController extends Controller
         $room = Room::find($request->room_id);
         $hours = Carbon::parse($request->starts_at)
             ->diffInHours(Carbon::parse($request->ends_at));
+        if($hours < $room->min_hours){
+            return back()->withErrors(['ends_at' => 'Длительность брони не может быть меньше чем заявлено в описании комнаты'])->withInput();
+        }
         $total = $hours * $room->price_per_hour;
         foreach ($syncData as $addonId=>$data) {
             $total += Addon::find($addonId)->price * $data['quantity'];

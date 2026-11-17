@@ -9,6 +9,16 @@
         <div class="max-w-2xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white shadow-sm sm:rounded-lg p-6">
 
+                @if ($errors->any())
+                    <div class="mb-4 text-red-600">
+                        <ul class="list-disc pl-5">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+
                 <form method="POST" action="{{ route('booking.update', $booking) }}" class="space-y-4">
                     @method('PATCH')
 
